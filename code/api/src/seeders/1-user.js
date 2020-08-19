@@ -30,3 +30,11 @@ module.exports = {
     return queryInterface.bulkDelete('users', null, {});
   }
 }
+
+// Annotation:
+// 'use strict' is used to indicate that the code is executed in strict mode.
+// This means you can not use undeclared variables. 
+// For instance, y = 3; would cause an error because y is not defined.
+
+// This is the seed file for a user. This is used to quickly seed a database
+// It is using the attrubutes from the User model to create specific types of User like user and admin.
