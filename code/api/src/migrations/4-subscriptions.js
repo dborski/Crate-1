@@ -37,3 +37,6 @@ module.exports = {
     return queryInterface.dropTable('subscriptions');
   }
 }
+
+// Annotation: Here is the migration for a User. It has the attributes of id, userId, crateId, createdAt, updatedAt. 
+// 'down' is there if the migration ever needs to be reversed.
