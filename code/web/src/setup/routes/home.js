@@ -33,3 +33,5 @@ export default {
     component: WhatsNew
   }
 }
+
+// NOTE Here are the routes for Users
