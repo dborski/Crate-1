@@ -22,3 +22,5 @@ export const crateById = {
   },
   resolve: getById
 }
+
+// Annotation these are queries. But theyre just retrieving data unlike mutations that are also queries but changing data.
