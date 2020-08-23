@@ -11,6 +11,7 @@ export const userInitialState = {
 }
 
 // State
+// Whoever made this applications is referring to the reducer/s as STATE… everywhere…
 export default (state = userInitialState, action) => {
   switch (action.type) {
     case SET_USER:
@@ -19,7 +20,7 @@ export default (state = userInitialState, action) => {
         isAuthenticated: !isEmpty(action.user),
         details: action.user,
       }
-
+// ANNOTATION: Once the user's data has been retrieved from the backend, it is then being set when this reducer is called in code/web/src/modules/user/api/actions.js
     case LOGIN_REQUEST:
       return {
         ...state,
