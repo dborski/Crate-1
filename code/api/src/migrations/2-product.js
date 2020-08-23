@@ -38,4 +38,6 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('products');
   }
+  // Annotation: Here is the migration for a Product. It has the attributes of id, name, slug, description, type, gender, image, createdAt, updatedAt. 
+// 'down' is there if the migration ever needs to be reversed. 
 }

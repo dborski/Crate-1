@@ -32,4 +32,7 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('users');
   }
+
+// Annotation: Here is the migration for a User. It has the attributes of id, name, email, password, role, createdAt, updatedAt. 
+// 'down' is there if the migration ever needs to be reversed.
 }

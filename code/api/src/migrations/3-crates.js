@@ -26,4 +26,6 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('crates');
   }
+  // Annotation: Here is the migration for a Crate. It has the attributes of id, name, description, createdAt, updatedAt. 
+// 'down' is there if the migration ever needs to be reversed. 
 }
