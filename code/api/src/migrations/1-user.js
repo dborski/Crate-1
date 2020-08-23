@@ -27,6 +27,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+      // ^ Another column will need to be added to our table:
+      // styleSurvey : {
+      //
+      // }
     });
   },
   down: (queryInterface, Sequelize) => {
