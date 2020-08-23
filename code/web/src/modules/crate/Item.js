@@ -27,6 +27,11 @@ class Item extends PureComponent {
       isLoading: false
     }
   }
+// Below is the function being ran when the '+ subscribe' button is clicked on a crate;
+// This is where we need to incorporate some conditional logic that goes & checks the user's style preferences value –
+// if the user DOES NOT have a value (meaning they have not done the style survey) then we render that component,
+// otherwise we render what is already here under render
+// NOTE – the button in the render block below also needs to be changed
 
   onClickSubscribe = (crateId) => {
     this.setState({
