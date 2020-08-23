@@ -16,7 +16,8 @@ import userRoutes from '../../setup/routes/user'
 import { logout } from './api/actions'
 
 // Component
-// Displays all users information, should also display the user style
+// Annotation: Displays all users information on their profile
+// TODO: should also display the user style
 const Profile = (props) => (
   <div>
     {/* SEO */}
