@@ -39,4 +39,6 @@ function dummyComponentReduxState(state) {
   return state
 }
 
+// ^ This component could be a good 'launching off point' for developing our new Component StyleSurvey
+
 export default connect(dummyComponentReduxState, { /* someAction */ })(DummyComponentRedux)
