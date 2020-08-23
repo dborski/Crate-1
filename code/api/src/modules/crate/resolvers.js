@@ -54,3 +54,6 @@ export async function remove(parentValue, { id }, { auth }) {
     throw new Error('Operation denied.')
   }
 }
+
+// ANNOTATION: Resolvers are functions that are responsible for populating the data for single field in the schema.
+// Resolvers essentially act as a GraphQl query handler.
