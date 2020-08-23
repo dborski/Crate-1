@@ -37,6 +37,13 @@ export function login(userCredentials, isLoading = true) {
       operation: 'userLogin',
       variables: userCredentials,
       fields: ['user {name, email, role}', 'token']
+
+      // ^ This is where a POST (what they are calling a POST request is actually a GET request) request is being made to the backend
+
+      // ^ After adding in a new column for the user called 'styleSurvey', this may be where we
+      // need to add our new column name to the fields above, to make sure that the users style preferences are
+      // being pulled down from the database on login???
+
     }))
       .then(response => {
         let error = ''
@@ -48,6 +55,8 @@ export function login(userCredentials, isLoading = true) {
           const user = response.data.data.userLogin.user
 
           dispatch(setUser(token, user))
+
+          // ^ Once the user's data has been retrieved from the backend, it is then being set when this reducer is called in code/web/src/modules/user/api/actions.js
 
           loginSetUserLocalStorageAndCookie(token, user)
         }
