@@ -11,6 +11,7 @@ export const userInitialState = {
 }
 
 // State
+// Whoever made this applications is referring to the reducer/s as STATE… everywhere…
 export default (state = userInitialState, action) => {
   switch (action.type) {
     case SET_USER:
@@ -20,12 +21,16 @@ export default (state = userInitialState, action) => {
         details: action.user,
       }
 
+    // ^ Once the user's data has been retrieved from the backend, it is then being set when this reducer is called in code/web/src/modules/user/api/actions.js
+
     case LOGIN_REQUEST:
       return {
         ...state,
         error: null,
         isLoading: action.isLoading
       }
+
+    // ^ This is where a POST (what they are calling a POST request is actually a GET request) request is being made to the backend in code/web/src/modules/user/api/actions.js
 
     case LOGIN_RESPONSE:
       return {
