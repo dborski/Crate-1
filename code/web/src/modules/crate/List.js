@@ -27,6 +27,10 @@ class List extends PureComponent {
   componentDidMount() {
     this.props.getCratesList('ASC')
   }
+  // ANNOTATION: When the Crate List Component mounts, the componentDidMount fn() is pulling the crate list data from the BE
+  //
+  // Then, in the map() found in the render below, a CrateItem being imported from code/web/src/modules/crate/Item.js is being generated for
+  // each item in the CrateList that is retrieved from the BE
 
   render() {
     return (
