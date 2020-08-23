@@ -47,3 +47,5 @@ export const userGenders = {
   type: new GraphQLList(UserGenderType),
   resolve: getGenders
 }
+
+// ANNOTATION: A general outline of the query file is that it is a collection of all the queries that just get (and not change) data
