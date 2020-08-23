@@ -17,6 +17,11 @@ module.exports = function(sequelize, DataTypes) {
     }
   })
 
+  // ^ The user's model will require another property inside of this object
+  //   styleSurvey: {
+  //     type: DataTypes.TEXT
+  //   }
+
   User.associate = function(models) {
     User.hasMany(models.Subscription)
   }
