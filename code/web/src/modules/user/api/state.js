@@ -43,6 +43,9 @@ export default (state = userInitialState, action) => {
         details: null
       }
 
+    // Create new case for ADD_STYLE_PREFERENCE
+    // modifies user.details.stylePreference
+
     default:
       return state
   }

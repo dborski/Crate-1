@@ -11,6 +11,7 @@ export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST'
 export const LOGIN_RESPONSE = 'AUTH/LOGIN_RESPONSE'
 export const SET_USER = 'AUTH/SET_USER'
 export const LOGOUT = 'AUTH/LOGOUT'
+// Add new Action Type for SET_STYLE_PREFERENCE
 
 // Actions
 
@@ -97,6 +98,9 @@ export function logout() {
     })
   }
 }
+
+// Write new function for setUserPreference
+// returns dispatch with an axios post request with userDetails, similar to register, modifies user.details.stylePreference
 
 // Unset user token and info in localStorage and cookie
 export function logoutUnsetUserLocalStorageAndCookie() {
