@@ -22,6 +22,9 @@ const Tile = (props) => {
   )
 }
 
+// ^ This Tile Component may be how we will get our StyleSurvey images to show up on the style survey page,
+// and maintain a similar look and feel to all other images in APP
+
 // Component Properties
 Tile.propTypes = {
   image: PropTypes.string.isRequired,
