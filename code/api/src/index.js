@@ -21,3 +21,8 @@ setupGraphQL(server)
 
 // Start server
 setupStartServer(server)
+
+// Annotation: This index file is essentially the "runner file" of the application.
+// It imports defines that express is the server framework being used.
+// Then this setupLoad and setup in general function calls are booting up the server
+// with load modules, uploads, Graphql, and starting the express server.
