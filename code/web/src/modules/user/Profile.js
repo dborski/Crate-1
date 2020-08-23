@@ -16,6 +16,7 @@ import userRoutes from '../../setup/routes/user'
 import { logout } from './api/actions'
 
 // Component
+// Displays all users information, should also display the user style
 const Profile = (props) => (
   <div>
     {/* SEO */}
@@ -33,6 +34,7 @@ const Profile = (props) => (
     <Grid>
       <GridCell style={{ padding: '2em', textAlign: 'center' }}>
         <H4 style={{ marginBottom: '0.5em' }}>{props.user.details.name}</H4>
+        {/* Display H4 with{props.user.details.stylePreference} */}
 
         <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.email}</p>
 
