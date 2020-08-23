@@ -39,4 +39,7 @@ const UserGenderType = new GraphQLObjectType({
   })
 })
 
+// ANNOTATION: My best educated assumption is that these types are just datatypes that GraphQL uses and need to be imported in our quries so that
+// GraphQL works correctly 
+
 export { UserType, UserLoginType, UserGenderType }

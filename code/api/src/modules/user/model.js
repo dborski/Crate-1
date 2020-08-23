@@ -23,3 +23,10 @@ module.exports = function(sequelize, DataTypes) {
 
   return User
 }
+  // ANNOTATION: This is defining our relationship to subscriptions in our database. User has a one-to-many relationship with subscriptions.
+  // Users has many subscriptions and subscriptions belong to a user. 
+
+  // POSSIBLE ADDITION: Since subscriptions is acting as a joins table, we should probably add the relationship that also exists between users and crates,
+  // such as User.hasMany(models.Crate) through subscriptions
+
+  // ANNOTATION: From experience, the model is generally a snapshot of how a specific table (in this case the users table) is setup. 

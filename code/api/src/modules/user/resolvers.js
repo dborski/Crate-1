@@ -77,3 +77,19 @@ export async function remove(parentValue, { id }) {
 export async function getGenders() {
   return Object.values(params.user.gender)
 }
+
+// ANNOTATION: This is where all of our actual functions that hit the database and do our CRUD operations live 
+
+// Summary of functions:
+
+// Query functions: These functions translate our javascript into pure SQL, which return data from our database and coverts them into objects we can use. 
+// fineOne: function that returns the first single record that meets all of the parameters of our query
+// findAll: function that returns all records that meet all of the parameters of our query
+
+// Mutation functions: These functions translate our javascript into pure SQL, which then change or destroy records in our database
+// create: function that creates a new record in our SQL database
+// destroy: function that deletes a record in our SQL database
+
+// bcrypt: An imported library (is that correct term?) that handles our user authentication. Under the hood, bcrypt
+// uses hashing functions to take a user's password, salt it multiple times, and then stores it in our database "securely"
+// bcrypt also handles confirming that passwords match when a user enters their password to login with the .compare method 

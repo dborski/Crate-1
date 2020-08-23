@@ -38,3 +38,9 @@ export const userRemove = {
   },
   resolve: remove
 }
+ // When creating a user, we need at least these three attributes. The one that is missing is role, 
+  // which is most likely manually manipulated for creating an admin user
+
+//ANNOTATION: A general outline of the mutations file is that it is a collection of all the queries that change data such as create, update, destroy.
+// The actual code for the database queries live in the resolvers.js file, but this file appears to act as a middleman between our frontend and those queries
+// and directs the requests to the proper function in resolvers. Maybe could look at this file like a controller in rails 
