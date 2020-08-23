@@ -5,6 +5,7 @@ import Profile from '../../modules/user/Profile'
 import Subscriptions from '../../modules/user/Subscriptions'
 
 // User routes
+// Changes the url to the path and renders components based on components
 export default {
   login: {
     path: '/user/login',
@@ -27,4 +28,6 @@ export default {
     component: Subscriptions,
     auth: true
   }
+   // going to need new route for styleSurvey
+  // Create a new component called styleSurvey
 }

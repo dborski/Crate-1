@@ -32,7 +32,6 @@ export default {
     path: '/whats-new',
     component: WhatsNew
   }
-  // going to need new route for styleSurvey
-  // Create a new component called styleSurvey
+ 
 }
 
