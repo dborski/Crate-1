@@ -81,3 +81,5 @@ function listState(state) {
 }
 
 export default connect(listState, { getCratesList })(List)
+
+// Annotation: Here is where the User is first introduced to the site.
