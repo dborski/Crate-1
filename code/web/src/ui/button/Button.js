@@ -48,6 +48,8 @@ const Button = (props) => {
     </button>
   )
 }
+// ANNOTATION: This is the Button component that we will need to incorporate a 'Submit' btn at the end of our
+// StyleSurvey Component form
 
 // Component Properties
 Button.propTypes = {
