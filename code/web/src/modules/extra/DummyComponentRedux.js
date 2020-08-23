@@ -38,5 +38,6 @@ DummyComponentRedux.propTypes = {
 function dummyComponentReduxState(state) {
   return state
 }
+// ANNOTATION: This component could be a good 'launching off point' for developing our new Component StyleSurvey
 
 export default connect(dummyComponentReduxState, { /* someAction */ })(DummyComponentRedux)
