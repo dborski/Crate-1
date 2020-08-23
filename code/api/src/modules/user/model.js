@@ -17,7 +17,10 @@ module.exports = function(sequelize, DataTypes) {
     }
   })
   // ANNOTATION: This model is telling us that our users table has four columns/attributes: 1. name, 2. email, 3. password, 4. role. (ID does not need to be defined, but it is also an attribute)
-
+  // ^ The user's model will require another property inside of this object
+  //   styleSurvey: {
+  //     type: DataTypes.TEXT
+  //   }
   User.associate = function(models) {
     User.hasMany(models.Subscription)
   }
