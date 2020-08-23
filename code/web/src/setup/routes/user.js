@@ -28,3 +28,11 @@ export default {
     auth: true
   }
 }
+// ANNOTATION: Another route will need to be added here in order for our StyleSurvey Component
+// to render, and for the user to be taken to our new route:
+//
+// styleSurvey: {
+//   path: '/user/style-preferences',
+//   component: StyleSurvey,
+//   auth: true
+// }
