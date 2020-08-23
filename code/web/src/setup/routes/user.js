@@ -5,6 +5,7 @@ import Profile from '../../modules/user/Profile'
 import Subscriptions from '../../modules/user/Subscriptions'
 
 // User routes
+// Annotation: Changes the url and renders components
 export default {
   login: {
     path: '/user/login',
@@ -36,3 +37,6 @@ export default {
 //   component: StyleSurvey,
 //   auth: true
 // }
+
+// TODO: going to need new route for styleSurvey
+// TODO: Create a new component called styleSurvey
