@@ -32,6 +32,11 @@ export function login(userCredentials, isLoading = true) {
       type: LOGIN_REQUEST,
       isLoading
     })
+      // ANNOATATION: Below => This is where a POST (what they are calling a POST request is actually a GET request) request is being made to the backend
+
+      // After adding in a new column for the user called 'styleSurvey', this may be where we
+      // need to add our new column name to the fields above, to make sure that the users style preferences are
+      // being pulled down from the database on login???
 
     return axios.post(routeApi, query({
       operation: 'userLogin',
@@ -51,7 +56,7 @@ export function login(userCredentials, isLoading = true) {
 
           loginSetUserLocalStorageAndCookie(token, user)
         }
-
+        // ANNOTATION: Once the user's data has been retrieved from the backend, it is then being set when this reducer is called in code/web/src/modules/user/api/actions.js
         dispatch({
           type: LOGIN_RESPONSE,
           error
