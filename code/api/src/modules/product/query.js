@@ -46,3 +46,6 @@ export const productTypes = {
 
 // ANNOTATION: This is a collection of all the queries for product. Like get all the products, get a product by slug,
 // product by ID, related products, and product types.
+
+
+// NOTE:jg - We might need to create a query that gets all clothing by gender if we would like to have gendered clothing options.
