@@ -20,6 +20,7 @@ export async function getAll(parentValue, { orderBy }) {
 }
 
 // Create crate
+// NOTE:jg - we will need to add the user admin role otherwise this function wont work. 
 export async function create(parentValue, { name, description }, { auth }) {
   if(auth.user && auth.user.role === params.user.roles.admin) {
     return await models.Crate.create({
@@ -32,6 +33,7 @@ export async function create(parentValue, { name, description }, { auth }) {
 }
 
 // Update crate
+// NOTE:jg - will also need to add the admin role. 
 export async function update(parentValue, { id, name, description }, { auth }) {
   if(auth.user && auth.user.role === params.user.roles.admin) {
     return await models.Crate.update(
