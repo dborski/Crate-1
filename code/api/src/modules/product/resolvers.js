@@ -97,3 +97,6 @@ export async function remove(parentValue, { id }, { auth }) {
 export async function getTypes() {
   return Object.values(params.product.types)
 }
+
+// ANNOTATION: Resolvers access the database and then construct whatever object is being called. 
+// For this instance it would be a Product object.
