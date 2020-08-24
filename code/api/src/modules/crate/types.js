@@ -1,6 +1,9 @@
 // Imports
 import { GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql'
 
+// defines the attributes associated with the crate
+// there does not seem to be a relation between crate and product. I could have missed it but we might have to create that.
+
 // Crate type
 const CrateType = new GraphQLObjectType({
   name: 'crate',
