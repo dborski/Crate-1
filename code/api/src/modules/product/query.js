@@ -43,3 +43,6 @@ export const productTypes = {
   type: new GraphQLList(ProductTypesType),
   resolve: getTypes
 }
+
+// ANNOTATION: This is a collection of all the queries for product. Like get all the products, get a product by slug,
+// product by ID, related products, and product types.
