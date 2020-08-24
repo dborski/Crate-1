@@ -40,6 +40,7 @@ export async function getAll() {
 }
 
 // Create subscription
+// ANNOTATION - heres how we create a subscription. Would we check the users style preference here to send to survey or not? 
 export async function create(parentValue, { crateId }, { auth }) {
   if(auth.user && auth.user.id > 0) {
     return await models.Subscription.create({
@@ -50,6 +51,9 @@ export async function create(parentValue, { crateId }, { auth }) {
     throw new Error('Please login to subscribe to this crate.')
   }
 }
+
+// ANNOTATION - Our guess is that the "crateID" is passed from the function before and "userID" is being set
+// by "auth.user.id". Here we have the user and could find out if the user needs to take a survey or not. 
 
 // Delete subscription
 export async function remove(parentValue, { id }, { auth }) {
