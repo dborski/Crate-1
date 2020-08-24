@@ -43,3 +43,6 @@ export const productTypes = {
   type: new GraphQLList(ProductTypesType),
   resolve: getTypes
 }
+
+// NOTE:jg - We might need to create a query that gets all clothing by gender if we would like to have gendered clothing options.
+

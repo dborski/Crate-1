@@ -18,6 +18,8 @@ const UserType = new GraphQLObjectType({
 })
 
 // User Login type
+
+// are these endpoints or what is going on here. It looks like this Authenticates users. 
 const UserLoginType = new GraphQLObjectType({
   name: 'userAuth',
   description: 'User Authentication Type',
