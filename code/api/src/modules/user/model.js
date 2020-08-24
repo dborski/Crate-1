@@ -14,6 +14,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     role: {
       type: DataTypes.TEXT
+    },
+    stylePreference: {
+      type: DataTypes.STRING
     }
   })
 
