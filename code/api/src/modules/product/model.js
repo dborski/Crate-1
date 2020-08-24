@@ -23,3 +23,6 @@ module.exports = function(sequelize, DataTypes) {
     }
   })
 }
+
+// ANNOTATION: This is our product model. Its telling us that it has 6 datatypes. These datatypes are name, slug, description,
+// type, gender, image.
