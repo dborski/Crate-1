@@ -95,3 +95,5 @@ export const productRemove = {
   },
   resolve: remove
 }
+
+// ANNOTATION: A general outline of the mutations file is that it is a collection of all the queries that change data such as create, update, destroy.
