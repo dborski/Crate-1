@@ -11,9 +11,10 @@ import Button from "../../ui/button";
 import ImageTile from "../../ui/image/Tile";
 import Input from "../../ui/input/Input";
 import H3 from "../../ui/typography/H3";
+import H4 from "../../ui/typography/H4";
 import Icon from "../../ui/icon";
 import { level1 } from "../../ui/common/shadows";
-import { white } from "../../ui/common/colors";
+import { white, grey } from "../../ui/common/colors";
 
 // App Imports
 import { APP_URL } from "../../setup/config/env";
@@ -30,21 +31,15 @@ class StyleSurvey extends Component {
     this.state = {
       error: "",
       isLoading: false,
-      user: {
-        name: "",
-        email: "",
-        password: "",
-      },
+      styleChoices: {},
     };
   }
 
   onChange = (event) => {
-    let user = this.state.user;
-    user[event.target.name] = event.target.value;
+    let styleChoices = this.state.styleChoices;
+    styleChoices[event.target.name] = event.target.value;
 
-    this.setState({
-      user,
-    });
+    this.setState({ styleChoices });
   };
 
   onSubmit = (event) => {
@@ -53,43 +48,64 @@ class StyleSurvey extends Component {
     this.setState({
       isLoading: true,
     });
+  };
 
-    // this.props.messageShow("Signing you up, please wait...");
-
-    // this.props
-    //   .register(this.state.user)
-    //   .then((response) => {
-    //     this.setState({
-    //       isLoading: false,
-    //     });
-
-    //     if (response.data.errors && response.data.errors.length > 0) {
-    //       this.props.messageShow(response.data.errors[0].message);
-    //     } else {
-    //       this.props.messageShow("Signed up successfully.");
-
-    //       this.props.history.push(userRoutes.login.path);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     this.props.messageShow(
-    //       "There was some error signing you up. Please try again."
-    //     );
-
-    //     this.setState({
-    //       isLoading: false,
-    //       error: "Error signing up.",
-    //     });
-    //   })
-    //   .then(() => {
-    //     window.setTimeout(() => {
-    //       this.props.messageHide();
-    //     }, 5000);
-    //   });
+  makeRadioBtns = () => {
+    const categories = ["Tops", "Bottoms", "Shoes", "Accessories", "Dress"];
+    return categories.map((category) => {
+      return (
+        <section>
+          {category}
+          <input
+            onChange={this.onChange}
+            type="radio"
+            name={category}
+            value="edgy"
+          />{" "}
+          Edgy
+          <input
+            onChange={this.onChange}
+            type="radio"
+            name={category}
+            value="professional"
+          />{" "}
+          Professional
+          <input
+            onChange={this.onChange}
+            type="radio"
+            name={category}
+            value="casual"
+          />{" "}
+          Casual
+        </section>
+      );
+    });
   };
 
   render() {
-    return <title>Testing</title>;
+    return (
+      <div>
+        <Helmet>
+          <title>My Style Survey </title>
+        </Helmet>
+        {/* Top title bar */}
+        <Grid style={{ backgroundColor: grey }}>
+          <GridCell style={{ padding: "2em", textAlign: "center" }}>
+            <H3 font="secondary">My Style Survey</H3>
+          </GridCell>
+        </Grid>
+        <Grid>
+          <GridCell style={{ padding: "2em", textAlign: "center" }}>
+            <H4 style={{ marginBottom: "0.5em" }}>
+              NAME, you don't have a style preference yet.
+              <br /> Please fill out this survey to determine your style
+              preference.
+            </H4>
+            {this.makeRadioBtns()}
+          </GridCell>
+        </Grid>
+      </div>
+    );
   }
 }
 
