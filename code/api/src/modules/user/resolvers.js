@@ -8,7 +8,7 @@ import params from '../../config/params'
 import models from '../../setup/models'
 
 // Create
-export async function create(parentValue, { name, email, password }) {
+export async function create(parentValue, { name, email, password, stylePreference }) {
   // Users exists with same email check
   const user = await models.User.findOne({ where: { email } })
 
@@ -19,11 +19,33 @@ export async function create(parentValue, { name, email, password }) {
     return await models.User.create({
       name,
       email,
-      password: passwordHashed
+      password: passwordHashed,
+      stylePreference
     })
   } else {
     // User exists
     throw new Error(`The email ${ email } is already registered. Please try to login.`)
+  }
+}
+
+// Update
+export async function update(parentValue, { id, name, email, password, stylePreference }) {
+  // Users exists with same email check
+  const user = await models.User.findOne({ where: { id } })
+
+  if (!user) {
+    // User does not exists
+    const passwordHashed = await bcrypt.hash(password, serverConfig.saltRounds)
+
+    return await models.User.update({
+      name,
+      email,
+      password: passwordHashed,
+      stylePreference
+    })
+  } else {
+    // User exists
+    throw new Error(`not working now`)
   }
 }
 
