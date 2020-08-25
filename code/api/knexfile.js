@@ -13,37 +13,15 @@ module.exports = {
     },
     useNullAsDefault: true
   },
-
-  // staging: {
-  //   client: 'postgresql',
-  //   connection: {
-  //     database: 'my_db',
-  //     user:     'username',
-  //     password: 'password'
-  //   },
-  //   pool: {
-  //     min: 2,
-  //     max: 10
-  //   },
-  //   migrations: {
-  //     tableName: 'knex_migrations'
-  //   }
-  // },
-
-  // production: {
-  //   client: 'postgresql',
-  //   connection: {
-  //     database: 'my_db',
-  //     user:     'username',
-  //     password: 'password'
-  //   },
-  //   pool: {
-  //     min: 2,
-  //     max: 10
-  //   },
-  //   migrations: {
-  //     tableName: 'knex_migrations'
-  //   }
-  // }
-
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/crate_test',
+    migrations: {
+      directory: './src/migrations'
+    },
+    seeds: {
+      directory: './src/seeders'
+    },
+    useNullAsDefault: true
+  },
 };
