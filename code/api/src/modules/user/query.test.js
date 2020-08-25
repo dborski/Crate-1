@@ -18,19 +18,19 @@ describe('user queries', () => {
     )
   })
 
-  it('returns all users', async () => {
+  it ('returns all users', async () => {
     const response = await request(server)
       .get('/')
-      .send({ query: '{ users { email name } }' })
+      .send({ query: '{ users { email name } }'})
       .expect(200)
 
     expect(response.body.data.users.length).toEqual(2)
   })
 
-  it('returns user by id', async () => {
+  it ('returns user by id', async () => {
     const response = await request(server)
       .get('/')
-      .send({ query: '{ user(id: 2) { email name } }' })
+      .send({ query: '{ user(id: 2) { email name } }'})
       .expect(200)
 
     expect(response.body.data.user.name).toEqual('The User')
