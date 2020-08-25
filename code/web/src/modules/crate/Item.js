@@ -39,9 +39,10 @@ class Item extends PureComponent {
       .then(response => {
         if (response.data.errors && response.data.errors.length > 0) {
           this.props.messageShow(response.data.errors[0].message)
+        } else if (!this.props.user.details.stylePreference) {
+          this.props.history.push(userRoutes.stylePreference.path)
         } else {
           this.props.messageShow('Subscribed successfully.')
-
           this.props.history.push(userRoutes.subscriptions.path)
         }
       })
