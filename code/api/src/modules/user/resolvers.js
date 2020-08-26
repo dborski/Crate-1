@@ -8,7 +8,7 @@ import params from '../../config/params'
 import models from '../../setup/models'
 
 // Create
-export async function create(parentValue, { name, email, password }) {
+export async function create(parentValue, { name, email, password, stylePreference }) {
   // Users exists with same email check
   const user = await models.User.findOne({ where: { email } })
 
@@ -19,7 +19,8 @@ export async function create(parentValue, { name, email, password }) {
     return await models.User.create({
       name,
       email,
-      password: passwordHashed
+      password: passwordHashed,
+      stylePreference
     })
   } else {
     // User exists
@@ -27,6 +28,22 @@ export async function create(parentValue, { name, email, password }) {
   }
 }
 
+// Update
+export async function update(parentValue, { id, name, email, stylePreference }) {
+  var user = await models.User.findOne({ where: { id } })
+
+  if (user) {
+    return await user.update({
+      name,
+      email,
+      stylePreference
+    }, { where: { id } })
+  } else {
+    throw new Error(`User with id:${ id } not found`)
+  }
+}
+
+// Login
 export async function login(parentValue, { email, password }) {
   const user = await models.User.findOne({ where: { email } })
 
