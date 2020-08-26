@@ -32,17 +32,17 @@ export async function create(parentValue, { name, email, password, stylePreferen
 export async function update(parentValue, { id, name, email, password, stylePreference }) {
   // Users exists with same email check
   const user = await models.User.findOne({ where: { id } })
-
-  if (!user) {
-    // User does not exists
-    const passwordHashed = await bcrypt.hash(password, serverConfig.saltRounds)
+  console.log(stylePreference)
+  if (user) {
+    // User does not exist
+    // const passwordHashed = await bcrypt.hash(password, serverConfig.saltRounds)
 
     return await models.User.update({
       name,
       email,
-      password: passwordHashed,
+      // password: passwordHashed,
       stylePreference
-    })
+    }, {where: {id} })
   } else {
     // User exists
     throw new Error(`not working now`)
