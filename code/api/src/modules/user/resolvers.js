@@ -29,26 +29,21 @@ export async function create(parentValue, { name, email, password, stylePreferen
 }
 
 // Update
-export async function update(parentValue, { id, name, email, password, stylePreference }) {
-  // Users exists with same email check
-  const user = await models.User.findOne({ where: { id } })
-  console.log(stylePreference)
-  if (user) {
-    // User does not exist
-    // const passwordHashed = await bcrypt.hash(password, serverConfig.saltRounds)
+export async function update(parentValue, { id, name, email, stylePreference }) {
+  var user = await models.User.findOne({ where: { id } })
 
-    return await models.User.update({
+  if (user) {
+    return await user.update({
       name,
       email,
-      // password: passwordHashed,
       stylePreference
-    }, {where: {id} })
+    }, { where: { id } })
   } else {
-    // User exists
-    throw new Error(`not working now`)
+    throw new Error(`User with id:${ id } not found`)
   }
 }
 
+// Login
 export async function login(parentValue, { email, password }) {
   const user = await models.User.findOne({ where: { email } })
 
