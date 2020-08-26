@@ -28,9 +28,12 @@ export function setUser(token, user) {
 
 //Set a Users style preference 
 export function setUserStylePreference(token, user) {
+
+  //Something similar to login post request happening here
+  
   return dispatch => {
     dispatch({
-      type: LOGIN_REQUEST,
+      type: SET_USER_STYLE_PREFERENCE,
       isLoading
     })
 

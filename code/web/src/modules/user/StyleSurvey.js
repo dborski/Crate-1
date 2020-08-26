@@ -13,7 +13,7 @@ import { white, grey } from "../../ui/common/colors";
 
 // App Imports
 import { messageShow, messageHide } from "../common/api/actions";
-import { register, login } from "./api/actions";
+import { setUserStylePreference } from "./api/actions";
 
 // Component
 class StyleSurvey extends Component {
@@ -24,7 +24,6 @@ class StyleSurvey extends Component {
       error: "",
       isLoading: false,
       styleChoices: {},
-      user: {}
     };
   }
 
@@ -37,7 +36,8 @@ class StyleSurvey extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    // this.props.updateUserStylePreference
+    // Call a post request with the user's email and array of strings of styleChoices
+    // this.props.setUserStylePreference(this.props.user.email, Object.values(this.state.styleChoices))
     this.setState({
       isLoading: true,
     });
@@ -116,6 +116,6 @@ function profileState(state) {
 // Component Properties
 StyleSurvey.propTypes = {};
 
-export default connect(profileState, { register, messageShow, messageHide, login })(
+export default connect(profileState, { setUserStylePreference, messageShow, messageHide })(
   withRouter(StyleSurvey)
 );
