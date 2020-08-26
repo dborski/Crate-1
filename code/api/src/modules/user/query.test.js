@@ -17,41 +17,55 @@ describe('user queries', () => {
         graphiql: false,
       }),
     )
-
-
-  })
-
-  it ('returns all users', async () => {
-    const response = await request(server)
-      .get('/')
-      .send({ query: '{ users { email name } }'})
-      .expect(200)
-
-    expect(response.body.data.users.length).toEqual(2)
   })
 
   it ('returns user by id', async () => {
+    const singleUserQuery = `query { 
+      user(id: 2) { 
+        email 
+        name } 
+    }`
+
     const response = await request(server)
       .get('/')
-      .send({ query: '{ user(id: 2) { email name } }'})
+      .send({ query: singleUserQuery})
       .expect(200)
 
     expect(response.body.data.user.name).toEqual('The User')
   })
 
-  it ('updates user style preference', async () => {
+  it ('returns all users', async () => {
+    const allUsersQuery = `query { 
+      users {
+        email
+        name
+      }
+    }`
+
     const response = await request(server)
       .get('/')
-      .send({ query: '{ user(id: 2) { email name stylePreference } }' })
-    
-    var userResponse = response.body.data.user
-  
+      .send({ query: allUsersQuery})
+      .expect(200)
+
+    expect(response.body.data.users.length).toEqual(3)
+  })
+
+
+  it ('updates user style preference', async () => {
+    const updateUserQuery = `mutation {
+      userUpdate(id:2, stylePreference: 'coding cowboy') {
+      id
+      name
+      email
+      stylePreference
+      }
+    }`
+
     const responseStyle = await request(server)
       .post('/')
-      .send({ query: 'mutation{ userUpdate(id: 2, stylePreference: "coding cowboy") {stylePreference} }'})
-    console.log("response.body------->", responseStyle.body)
+      .send({ query: updateUserQuery })
       .expect(200)
-    var updatedUserResponse = responseStyle.body.data.user
-    expect(updatedUserResponse.stylePreference).toEqual("coding cowboy")
+      
+    expect(responseStyle.body.data.userUpdate.stylePreference).toEqual("coding cowboy")
   })
 })
