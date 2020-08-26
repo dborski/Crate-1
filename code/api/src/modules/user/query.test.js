@@ -27,7 +27,7 @@ describe('user queries', () => {
       .send({ query: '{ users { email name } }'})
       .expect(200)
 
-    expect(response.body.data.users.length).toEqual(3)
+    expect(response.body.data.users.length).toEqual(2)
   })
 
   it ('returns user by id', async () => {
@@ -40,16 +40,18 @@ describe('user queries', () => {
   })
 
   it ('updates user style preference', async () => {
-    const user = [
-      { id: 1, name: "test", email: "test", password: "pw", stylePreference: "test" }
-      // { id: 2, url: "https://www.url2.dev" },
-      // { id: 3, url: "https://www.link3.dev" }
-    ];
     const response = await request(server)
       .get('/')
-      .send({ query: 'mutation{ userUpdate(id: 1, stylePreference: "goth farmer") }'})
-      console.log(response.body)
+      .send({ query: '{ user(id: 2) { email name stylePreference } }' })
+    
+    var userResponse = response.body.data.user
+  
+    const responseStyle = await request(server)
+      .post('/')
+      .send({ query: 'mutation{ userUpdate(id: 2, stylePreference: "coding cowboy") {stylePreference} }'})
+    console.log("response.body------->", responseStyle.body)
       .expect(200)
-
+    var updatedUserResponse = responseStyle.body.data.user
+    expect(updatedUserResponse.stylePreference).toEqual("coding cowboy")
   })
 })
