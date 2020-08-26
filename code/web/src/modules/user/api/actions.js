@@ -11,6 +11,7 @@ export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST'
 export const LOGIN_RESPONSE = 'AUTH/LOGIN_RESPONSE'
 export const SET_USER = 'AUTH/SET_USER'
 export const LOGOUT = 'AUTH/LOGOUT'
+export const SET_USER_STYLE_PREFERENCE = 'AUTH/SET_USER_STYLE_PREFERENCE'
 
 // Actions
 
@@ -23,6 +24,47 @@ export function setUser(token, user) {
   }
 
   return { type: SET_USER, user }
+}
+
+//Set a Users style preference 
+export function setUserStylePreference(token, user) {
+  return dispatch => {
+    dispatch({
+      type: LOGIN_REQUEST,
+      isLoading
+    })
+
+    return axios.post(routeApi, query({
+      operation: 'userLogin',
+      variables: userCredentials,
+      fields: ['user {name, email, role}', 'token']
+    }))
+      .then(response => {
+        let error = ''
+
+        if (response.data.errors && response.data.errors.length > 0) {
+          error = response.data.errors[0].message
+        } else if (response.data.data.userLogin.token !== '') {
+          const token = response.data.data.userLogin.token
+          const user = response.data.data.userLogin.user
+
+          dispatch(setUser(token, user))
+
+          loginSetUserLocalStorageAndCookie(token, user)
+        }
+
+        dispatch({
+          type: LOGIN_RESPONSE,
+          error
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: LOGIN_RESPONSE,
+          error: 'Please try again'
+        })
+      })
+  }
 }
 
 // Login a user using credentials

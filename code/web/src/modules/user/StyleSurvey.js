@@ -7,21 +7,13 @@ import { Helmet } from "react-helmet";
 
 // UI Imports
 import { Grid, GridCell } from "../../ui/grid";
-import Button from "../../ui/button";
-import ImageTile from "../../ui/image/Tile";
-import Input from "../../ui/input/Input";
 import H3 from "../../ui/typography/H3";
 import H4 from "../../ui/typography/H4";
-import Icon from "../../ui/icon";
-import { level1 } from "../../ui/common/shadows";
 import { white, grey } from "../../ui/common/colors";
 
 // App Imports
-import { APP_URL } from "../../setup/config/env";
-import userRoutes from "../../setup/routes/user";
 import { messageShow, messageHide } from "../common/api/actions";
-import { register } from "./api/actions";
-import AuthCheck from "../auth/AuthCheck";
+import { register, login } from "./api/actions";
 
 // Component
 class StyleSurvey extends Component {
@@ -32,6 +24,7 @@ class StyleSurvey extends Component {
       error: "",
       isLoading: false,
       styleChoices: {},
+      user: {}
     };
   }
 
@@ -44,7 +37,7 @@ class StyleSurvey extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-
+    // this.props.updateUserStylePreference
     this.setState({
       isLoading: true,
     });
@@ -52,7 +45,7 @@ class StyleSurvey extends Component {
 
   makeRadioBtns = () => {
     const categories = ["Tops", "Bottoms", "Shoes", "Accessories", "Dress"];
-    return categories.map((category) => {
+    return categories.map((category, i) => {
       return (
         <section>
           {category}
@@ -61,6 +54,7 @@ class StyleSurvey extends Component {
             type="radio"
             name={category}
             value="edgy"
+            key={i + "edgy" + category }
           />{" "}
           Edgy
           <input
@@ -68,6 +62,7 @@ class StyleSurvey extends Component {
             type="radio"
             name={category}
             value="professional"
+            key={i + "professional" + category}
           />{" "}
           Professional
           <input
@@ -75,6 +70,8 @@ class StyleSurvey extends Component {
             type="radio"
             name={category}
             value="casual"
+            key={i + "casual" +  category }
+
           />{" "}
           Casual
         </section>
@@ -102,6 +99,7 @@ class StyleSurvey extends Component {
               preference.
             </H4>
             {this.makeRadioBtns()}
+        <button onClick={this.onSubmit}>SUBMIT</button>
           </GridCell>
         </Grid>
       </div>
@@ -109,9 +107,15 @@ class StyleSurvey extends Component {
   }
 }
 
+function profileState(state) {
+  return {
+    user: state.user
+  }
+}
+
 // Component Properties
 StyleSurvey.propTypes = {};
 
-export default connect(null, { register, messageShow, messageHide })(
+export default connect(profileState, { register, messageShow, messageHide, login })(
   withRouter(StyleSurvey)
 );
