@@ -35,8 +35,28 @@ class StyleSurvey extends Component {
     this.setState({ styleChoices });
   };
 
+
+  findRecurringStyles = (array) => {
+    let styleCounts = array.reduce((acc, style) => {
+  
+      !acc[style] ? acc[style] = 1 : acc[style] ++;
+      
+      return acc;
+    }, {})
+      
+    let sortedObjectByStyleInstances = Object.keys(styleCounts).sort(function(a,b){return styleCounts[b]-styleCounts[a]})
+    
+    return (
+      `User your styles have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`
+    )
+  }
+  
+  findRecurringStyles(styles);
+
   onSubmit = async (event) => {
     event.preventDefault();
+
+
     // Call a post request with the user's email and array of strings of styleChoices
     await this.props.setUserStylePreference({ id: 3 , stylePreference: "testing style preference" })
     const user = this.props.user.details
