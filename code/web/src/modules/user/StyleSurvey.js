@@ -10,6 +10,7 @@ import { Grid, GridCell } from "../../ui/grid";
 import H3 from "../../ui/typography/H3";
 import H4 from "../../ui/typography/H4";
 import { white, grey } from "../../ui/common/colors";
+import Button from '../../ui/button'
 
 // App Imports
 import { messageShow, messageHide } from "../common/api/actions";
@@ -68,19 +69,17 @@ class StyleSurvey extends Component {
       stylePreference: style
     });
 
-
-
     const user = this.props.user.details;
     window.localStorage.setItem("user", JSON.stringify(user));
-    const changePage = () => {
-      this.props.history.push(userRoutes.subscriptions.path)
-    }
-    setTimeout(changePage, 2000)
     
     this.setState({
       isLoading: true,
     });
   };
+
+  changePage = () => {
+    this.props.history.push(userRoutes.subscriptions.path)
+  }
 
   makeRadioBtns = () => {
     const categories = ["Tops", "Bottoms", "Shoes", "Accessories", "Dress"];
@@ -145,9 +144,14 @@ class StyleSurvey extends Component {
       );
     } else {
       return (
+        <>
         <H3 style={{ textAlign: "center", marginTop: "7em" }}>
           {this.state.styleMessage}
         </H3>
+        <div style={{textAlign: "center" }}>
+          <Button theme="secondary" onClick={this.changePage}>Subscriptions</Button>
+        </div>
+        </>
       );
     }
   }
