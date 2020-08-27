@@ -14,8 +14,7 @@ import { white, grey } from "../../ui/common/colors";
 // App Imports
 import { messageShow, messageHide } from "../common/api/actions";
 import { setUserStylePreference } from "./api/actions";
-import { userList } from "../../setup/routes/admin/user";
-
+import userRoutes from "../../setup/routes/user";
 // Component
 class StyleSurvey extends Component {
   constructor(props) {
@@ -55,7 +54,7 @@ class StyleSurvey extends Component {
       determinedStyle: sortedObjectByStyleInstances[0],
     });
     this.setState({
-      styleMessage: `${this.props.user.details.name} your style preference have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
+      styleMessage: `${this.props.user.details.name} your style preference has been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
     });
     return sortedObjectByStyleInstances[0];
   };
@@ -69,8 +68,15 @@ class StyleSurvey extends Component {
       stylePreference: style
     });
 
+
+
     const user = this.props.user.details;
     window.localStorage.setItem("user", JSON.stringify(user));
+    const changePage = () => {
+      this.props.history.push(userRoutes.subscriptions.path)
+    }
+    setTimeout(changePage, 2000)
+    
     this.setState({
       isLoading: true,
     });
