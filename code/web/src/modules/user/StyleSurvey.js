@@ -55,22 +55,20 @@ class StyleSurvey extends Component {
       determinedStyle: sortedObjectByStyleInstances[0],
     });
     this.setState({
-      styleMessage: `User your styles have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
+      styleMessage: `${this.props.user.details.name} your styles have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
     });
+    return sortedObjectByStyleInstances[0];
   };
 
   onSubmit = async (event) => {
     event.preventDefault();
-
-    console.log(
-      this.findRecurringStyles(Object.values(this.state.styleChoices))
-    );
-
-    // Call a post request with the user's email and array of strings of styleChoices
+    const style = this.findRecurringStyles(Object.values(this.state.styleChoices));
+    
     await this.props.setUserStylePreference({
-      id: 3,
-      stylePreference: "testing style preference",
+      id: this.props.user.details.id,
+      stylePreference: style
     });
+
     const user = this.props.user.details;
     window.localStorage.setItem("user", JSON.stringify(user));
     this.setState({
@@ -129,7 +127,7 @@ class StyleSurvey extends Component {
           <Grid>
             <GridCell style={{ padding: "2em", textAlign: "center" }}>
               <H4 style={{ marginBottom: "0.5em" }}>
-                NAME, you don't have a style preference yet.
+                {`${this.props.user.details.name}`}, you don't have a style preference yet.
                 <br /> Please fill out this survey to determine your style
                 preference.
               </H4>
