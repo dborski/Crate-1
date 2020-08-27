@@ -14,6 +14,7 @@ import { white, grey } from "../../ui/common/colors";
 // App Imports
 import { messageShow, messageHide } from "../common/api/actions";
 import { setUserStylePreference } from "./api/actions";
+import { userList } from "../../setup/routes/admin/user";
 
 // Component
 class StyleSurvey extends Component {
@@ -34,10 +35,13 @@ class StyleSurvey extends Component {
     this.setState({ styleChoices });
   };
 
-  onSubmit = (event) => {
+  onSubmit = async (event) => {
     event.preventDefault();
     // Call a post request with the user's email and array of strings of styleChoices
-    // this.props.setUserStylePreference(this.props.user.email, Object.values(this.state.styleChoices))
+    await this.props.setUserStylePreference({ id: 3 , stylePreference: "andy's 2" })
+    const user = this.props.user.details
+    console.log(user)
+    window.localStorage.setItem('user', JSON.stringify(user))
     this.setState({
       isLoading: true,
     });
@@ -47,7 +51,7 @@ class StyleSurvey extends Component {
     const categories = ["Tops", "Bottoms", "Shoes", "Accessories", "Dress"];
     return categories.map((category, i) => {
       return (
-        <section>
+        <section key={category+ "section"}>
           {category}
           <input
             onChange={this.onChange}
