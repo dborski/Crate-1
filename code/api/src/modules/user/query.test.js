@@ -140,4 +140,22 @@ describe('user queries', () => {
     expect(response.body.data.userSignup.name).toEqual("newUser")
     expect(response.body.data.userSignup.email).toEqual("newEmail@example.com")
   })
+
+  it.skip ('logs in a user', async() => {
+    const loginUserQuery = `query {
+      userLogin(email: "test1@example.com", password: "abc123") {
+        name
+        email
+        role
+      },
+        token 
+    }`
+
+    const response = await request(server)
+      .post('/')
+      .send({ query: loginUserQuery })
+      .expect(200)
+
+    expect(response.body.data.userLogin.email).toEqual("testUser1@example.com")
+  })
 })
