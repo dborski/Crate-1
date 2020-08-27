@@ -136,7 +136,7 @@ class StyleSurvey extends Component {
             </GridCell>
           </Grid>
           <Grid>
-            <GridCell style={{ padding: "2em", textAlign: "center" }}>
+            <GridCell style={{textAlign: "center" }}>
               <H3 style={{ marginBottom: "0.5em" }}>
                 {`${this.props.user.details.name}`}, you don't have a style preference yet.
                 <br /> Please fill out this survey to determine your style
