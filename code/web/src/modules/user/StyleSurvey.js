@@ -55,7 +55,7 @@ class StyleSurvey extends Component {
       determinedStyle: sortedObjectByStyleInstances[0],
     });
     this.setState({
-      styleMessage: `${this.props.user.details.name} your styles have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
+      styleMessage: `${this.props.user.details.name} your style preference have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
     });
     return sortedObjectByStyleInstances[0];
   };
@@ -63,7 +63,7 @@ class StyleSurvey extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
     const style = this.findRecurringStyles(Object.values(this.state.styleChoices));
-    
+
     await this.props.setUserStylePreference({
       id: this.props.user.details.id,
       stylePreference: style
