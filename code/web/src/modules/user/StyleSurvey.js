@@ -35,32 +35,37 @@ class StyleSurvey extends Component {
     this.setState({ styleChoices });
   };
 
-
   findRecurringStyles = (array) => {
     let styleCounts = array.reduce((acc, style) => {
-  
-      !acc[style] ? acc[style] = 1 : acc[style] ++;
-      
+      !acc[style] ? (acc[style] = 1) : acc[style]++;
+
       return acc;
-    }, {})
-      
-    let sortedObjectByStyleInstances = Object.keys(styleCounts).sort(function(a,b){return styleCounts[b]-styleCounts[a]})
-    
-    return (
-      `User your styles have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`
-    )
-  }
-  
-  findRecurringStyles(styles);
+    }, {});
+
+    let sortedObjectByStyleInstances = Object.keys(styleCounts).sort(function (
+      a,
+      b
+    ) {
+      return styleCounts[b] - styleCounts[a];
+    });
+
+    return `User your styles have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`;
+  };
 
   onSubmit = async (event) => {
     event.preventDefault();
 
+    console.log(
+      this.findRecurringStyles(Object.values(this.state.styleChoices))
+    );
 
     // Call a post request with the user's email and array of strings of styleChoices
-    await this.props.setUserStylePreference({ id: 3 , stylePreference: "testing style preference" })
-    const user = this.props.user.details
-    window.localStorage.setItem('user', JSON.stringify(user))
+    await this.props.setUserStylePreference({
+      id: 3,
+      stylePreference: "testing style preference",
+    });
+    const user = this.props.user.details;
+    window.localStorage.setItem("user", JSON.stringify(user));
     this.setState({
       isLoading: true,
     });
@@ -70,14 +75,14 @@ class StyleSurvey extends Component {
     const categories = ["Tops", "Bottoms", "Shoes", "Accessories", "Dress"];
     return categories.map((category, i) => {
       return (
-        <section key={category+ "section"}>
+        <section key={category + "section"}>
           {category}
           <input
             onChange={this.onChange}
             type="radio"
             name={category}
             value="edgy"
-            key={i + "edgy" + category }
+            key={i + "edgy" + category}
           />{" "}
           Edgy
           <input
@@ -93,8 +98,7 @@ class StyleSurvey extends Component {
             type="radio"
             name={category}
             value="casual"
-            key={i + "casual" +  category }
-
+            key={i + "casual" + category}
           />{" "}
           Casual
         </section>
@@ -122,7 +126,7 @@ class StyleSurvey extends Component {
               preference.
             </H4>
             {this.makeRadioBtns()}
-        <button onClick={this.onSubmit}>SUBMIT</button>
+            <button onClick={this.onSubmit}>SUBMIT</button>
           </GridCell>
         </Grid>
       </div>
@@ -132,13 +136,15 @@ class StyleSurvey extends Component {
 
 function profileState(state) {
   return {
-    user: state.user
-  }
+    user: state.user,
+  };
 }
 
 // Component Properties
 StyleSurvey.propTypes = {};
 
-export default connect(profileState, { setUserStylePreference, messageShow, messageHide })(
-  withRouter(StyleSurvey)
-);
+export default connect(profileState, {
+  setUserStylePreference,
+  messageShow,
+  messageHide,
+})(withRouter(StyleSurvey));
