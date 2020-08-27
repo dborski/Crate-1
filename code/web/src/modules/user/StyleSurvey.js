@@ -114,30 +114,38 @@ class StyleSurvey extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <Helmet>
-          <title>My Style Survey </title>
-        </Helmet>
-        {/* Top title bar */}
-        <Grid style={{ backgroundColor: grey }}>
-          <GridCell style={{ padding: "2em", textAlign: "center" }}>
-            <H3 font="secondary">My Style Survey</H3>
-          </GridCell>
-        </Grid>
-        <Grid>
-          <GridCell style={{ padding: "2em", textAlign: "center" }}>
-            <H4 style={{ marginBottom: "0.5em" }}>
-              NAME, you don't have a style preference yet.
-              <br /> Please fill out this survey to determine your style
-              preference.
-            </H4>
-            {this.makeRadioBtns()}
-            <button onClick={this.onSubmit}>SUBMIT</button>
-          </GridCell>
-        </Grid>
-      </div>
-    );
+    if (this.state.styleMessage === "") {
+      return (
+        <div>
+          <Helmet>
+            <title>My Style Survey </title>
+          </Helmet>
+          {/* Top title bar */}
+          <Grid style={{ backgroundColor: grey }}>
+            <GridCell style={{ padding: "2em", textAlign: "center" }}>
+              <H3 font="secondary">My Style Survey</H3>
+            </GridCell>
+          </Grid>
+          <Grid>
+            <GridCell style={{ padding: "2em", textAlign: "center" }}>
+              <H4 style={{ marginBottom: "0.5em" }}>
+                NAME, you don't have a style preference yet.
+                <br /> Please fill out this survey to determine your style
+                preference.
+              </H4>
+              {this.makeRadioBtns()}
+              <button onClick={this.onSubmit}>SUBMIT</button>
+            </GridCell>
+          </Grid>
+        </div>
+      );
+    } else {
+      return (
+        <H3 style={{ textAlign: "center", marginTop: "7em" }}>
+          {this.state.styleMessage}
+        </H3>
+      );
+    }
   }
 }
 
