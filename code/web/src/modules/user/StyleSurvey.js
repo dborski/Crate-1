@@ -25,6 +25,8 @@ class StyleSurvey extends Component {
       error: "",
       isLoading: false,
       styleChoices: {},
+      styleMessage: "",
+      determinedStyle: "",
     };
   }
 
@@ -49,7 +51,12 @@ class StyleSurvey extends Component {
       return styleCounts[b] - styleCounts[a];
     });
 
-    return `User your styles have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`;
+    this.setState({
+      determinedStyle: sortedObjectByStyleInstances[0],
+    });
+    this.setState({
+      styleMessage: `User your styles have been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
+    });
   };
 
   onSubmit = async (event) => {
