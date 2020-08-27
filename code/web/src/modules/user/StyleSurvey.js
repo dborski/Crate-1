@@ -38,9 +38,8 @@ class StyleSurvey extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
     // Call a post request with the user's email and array of strings of styleChoices
-    await this.props.setUserStylePreference({ id: 3 , stylePreference: "andy's 2" })
+    await this.props.setUserStylePreference({ id: 3 , stylePreference: "testing style preference" })
     const user = this.props.user.details
-    console.log(user)
     window.localStorage.setItem('user', JSON.stringify(user))
     this.setState({
       isLoading: true,
