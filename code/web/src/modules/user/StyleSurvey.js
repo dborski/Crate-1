@@ -26,6 +26,7 @@ class StyleSurvey extends Component {
       isLoading: false,
       styleChoices: {},
       styleMessage: "",
+      surveyMessage: "",
       determinedStyle: "",
     };
   }
@@ -62,19 +63,24 @@ class StyleSurvey extends Component {
 
   onSubmit = async (event) => {
     event.preventDefault();
-    const style = this.findRecurringStyles(Object.values(this.state.styleChoices));
+    const stylePreferencesList = Object.values(this.state.styleChoices)
 
-    await this.props.setUserStylePreference({
-      id: this.props.user.details.id,
-      stylePreference: style
-    });
+    if (stylePreferencesList.length === 5) {
+      const style = this.findRecurringStyles(stylePreferencesList);
+      await this.props.setUserStylePreference({
+        id: this.props.user.details.id,
+        stylePreference: style
+      });
 
-    const user = this.props.user.details;
-    window.localStorage.setItem("user", JSON.stringify(user));
-    
-    this.setState({
-      isLoading: true,
-    });
+      const user = this.props.user.details;
+      window.localStorage.setItem("user", JSON.stringify(user));
+      
+      this.setState({
+        isLoading: true,
+      });
+    } else {
+      this.setState({surveyMessage: "Please fill out entire survey"})
+    }
   };
 
   changePage = () => {
@@ -131,13 +137,14 @@ class StyleSurvey extends Component {
           </Grid>
           <Grid>
             <GridCell style={{ padding: "2em", textAlign: "center" }}>
-              <H4 style={{ marginBottom: "0.5em" }}>
+              <H3 style={{ marginBottom: "0.5em" }}>
                 {`${this.props.user.details.name}`}, you don't have a style preference yet.
                 <br /> Please fill out this survey to determine your style
                 preference.
-              </H4>
+              </H3>
               {this.makeRadioBtns()}
               <button onClick={this.onSubmit}>SUBMIT</button>
+              {this.state.surveyMessage && <p style={{color:"red"}}>{this.state.surveyMessage}</p>}
             </GridCell>
           </Grid>
         </div>
