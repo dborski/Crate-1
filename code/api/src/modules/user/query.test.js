@@ -109,7 +109,7 @@ describe('user queries', () => {
 
   it ('deletes a user', async() => {
     const deleteUserQuery = `mutation {
-      userRemove(id:20) {
+      userRemove(id:1) {
         id
         name
       }
@@ -121,5 +121,23 @@ describe('user queries', () => {
       .expect(200)
 
     expect(response.body.data.userRemove.id).toEqual(null)
+  })
+
+  it ('creates a user', async() => {
+    const createUserQuery = `mutation {
+      userSignup(name: "newUser", email: "newEmail@example.com", password: "testPassword") {
+        id
+        name
+        email
+      }
+    }`
+
+    const response = await request(server)
+      .post('/')
+      .send({ query: createUserQuery })
+      .expect(200)
+
+    expect(response.body.data.userSignup.name).toEqual("newUser")
+    expect(response.body.data.userSignup.email).toEqual("newEmail@example.com")
   })
 })
