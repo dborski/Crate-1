@@ -23,11 +23,6 @@ export const userSignup = {
       name: 'password',
       type: GraphQLString
     },
-
-    stylePreference: {
-      name: 'stylePreference',
-      type: GraphQLString
-    }
   },
   resolve: create
 }
