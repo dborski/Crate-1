@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet";
 import { Grid, GridCell } from "../../ui/grid";
 import H3 from "../../ui/typography/H3";
 import H4 from "../../ui/typography/H4";
-import { white, grey } from "../../ui/common/colors";
+import { white, grey, grey2 } from "../../ui/common/colors";
 import Button from '../../ui/button'
 
 // App Imports
@@ -56,7 +56,7 @@ class StyleSurvey extends Component {
       determinedStyle: sortedObjectByStyleInstances[0],
     });
     this.setState({
-      styleMessage: `${this.props.user.details.name} your style preference has been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
+      styleMessage: `${this.props.user.details.name}, your style preference has been set to ${sortedObjectByStyleInstances[0]}! Damn you look good.`,
     });
     return sortedObjectByStyleInstances[0];
   };
@@ -133,15 +133,13 @@ class StyleSurvey extends Component {
           <Grid style={{ backgroundColor: grey }}>
             <GridCell style={{ padding: "2em", textAlign: "center" }}>
               <H3 font="secondary">My Style Survey</H3>
+              <p style={{ marginTop: '1em', color: grey2 }}>{`${this.props.user.details.name}`}, you don't have a style preference yet.
+                <br /> Please fill out this survey to determine your style
+                preference.</p>
             </GridCell>
           </Grid>
           <Grid>
             <GridCell style={{textAlign: "center" }}>
-              <H3 style={{ marginBottom: "0.5em" }}>
-                {`${this.props.user.details.name}`}, you don't have a style preference yet.
-                <br /> Please fill out this survey to determine your style
-                preference.
-              </H3>
               {this.makeRadioBtns()}
               <button onClick={this.onSubmit}>SUBMIT</button>
               {this.state.surveyMessage && <p style={{color:"red"}}>{this.state.surveyMessage}</p>}
@@ -152,7 +150,7 @@ class StyleSurvey extends Component {
     } else {
       return (
         <>
-        <H3 style={{ textAlign: "center", marginTop: "7em" }}>
+          <H3 font="secondary" style={{ textAlign: "center", marginTop: "7em" }}>
           {this.state.styleMessage}
         </H3>
         <div style={{textAlign: "center" }}>
