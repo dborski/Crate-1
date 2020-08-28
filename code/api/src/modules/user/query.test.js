@@ -19,12 +19,12 @@ describe('user queries', () => {
         graphiql: false,
       }),
     );
-    await models.User.destroy({ where: {} })
+    // await models.User.destroy({ where: {} })
   })
 
   beforeEach(async () => {
     const userData1 = {
-      id: 1,
+      id: 3,
       name: "testUser1",
       email: "test1@example.com",
       password: bcrypt.hashSync('abc123', 10),
@@ -35,7 +35,7 @@ describe('user queries', () => {
     };
 
     const userData2 = {
-      id: 2,
+      id: 4,
       name: "testUser2",
       email: "test2@example.com",
       password: bcrypt.hashSync('123abc', 10),
@@ -59,7 +59,7 @@ describe('user queries', () => {
 
   it ('returns user by id', async () => {
     const singleUserQuery = `query { 
-      user(id: 2) { 
+      user(id: 3) { 
         email 
         name 
       } 
@@ -70,7 +70,7 @@ describe('user queries', () => {
       .send({ query: singleUserQuery})
       .expect(200)
 
-    expect(response.body.data.user.name).toEqual('testUser2')
+    expect(response.body.data.user.name).toEqual('testUser1')
   })
 
   it ('returns all users', async () => {
@@ -91,7 +91,7 @@ describe('user queries', () => {
 
   it ('updates user style preference', async () => {
     const updateUserQuery = `mutation {
-      userUpdate(id:2, stylePreference: "coding cowboy") {
+      userUpdate(id:3, stylePreference: "coding cowboy") {
       id
       name
       email
