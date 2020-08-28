@@ -47,6 +47,7 @@ class List extends PureComponent {
         </Grid>
 
         {/* Crate list */}
+    
         <Grid>
           <GridCell>
             {

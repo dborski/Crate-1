@@ -13,10 +13,20 @@ import { grey, grey2 } from '../../ui/common/colors'
 
 // App Imports
 import userRoutes from '../../setup/routes/user'
-import { logout } from './api/actions'
+import { logout, setUserStylePreference } from './api/actions'
 
 // Component
-const Profile = (props) => (
+const Profile = (props) => {
+const removeStylePreference = async () => {
+  await props.setUserStylePreference({ id: 3, stylePreference: "" })
+  setLocalStorage()
+}
+const setLocalStorage = () => {
+  const user = props.user.details
+  console.log(user)
+  window.localStorage.setItem('user', JSON.stringify(user))
+}
+return (  
   <div>
     {/* SEO */}
     <Helmet>
@@ -35,16 +45,17 @@ const Profile = (props) => (
         <H4 style={{ marginBottom: '0.5em' }}>{props.user.details.name}</H4>
 
         <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.email}</p>
+        <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.stylePreference}</p>
 
         <Link to={userRoutes.subscriptions.path}>
           <Button theme="primary">Subscriptions</Button>
         </Link>
-
+        <button onClick={removeStylePreference}>Remove Style Preference</button>
         <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
       </GridCell>
     </Grid>
-  </div>
-)
+  </div>)
+}
 
 // Component Properties
 Profile.propTypes = {
@@ -59,4 +70,4 @@ function profileState(state) {
   }
 }
 
-export default connect(profileState, { logout })(Profile)
+export default connect(profileState, { logout, setUserStylePreference })(Profile)

@@ -27,47 +27,32 @@ export function setUser(token, user) {
 }
 
 //Set a Users style preference 
-export function setUserStylePreference(token, user) {
+export function setUserStylePreference(userDetails) {
 
   //Something similar to login post request happening here
-  
   return dispatch => {
-    dispatch({
-      type: SET_USER_STYLE_PREFERENCE,
-      isLoading
-    })
+    return axios.post(routeApi,
+        mutation({
+          operation: "userUpdate",
+          variables: userDetails,
+          fields: ["id", "stylePreference"],
+        }))
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('yay, the post request worked')
+          dispatch({
+            type: SET_USER_STYLE_PREFERENCE,
+            payload: userDetails.stylePreference,
+          });
 
-    return axios.post(routeApi, query({
-      operation: 'userLogin',
-      variables: userCredentials,
-      fields: ['user {name, email, role}', 'token']
-    }))
-      .then(response => {
-        let error = ''
-
-        if (response.data.errors && response.data.errors.length > 0) {
-          error = response.data.errors[0].message
-        } else if (response.data.data.userLogin.token !== '') {
-          const token = response.data.data.userLogin.token
-          const user = response.data.data.userLogin.user
-
-          dispatch(setUser(token, user))
-
-          loginSetUserLocalStorageAndCookie(token, user)
+        } else {
+          console.error(response);
         }
-
-        dispatch({
-          type: LOGIN_RESPONSE,
-          error
-        })
       })
-      .catch(error => {
-        dispatch({
-          type: LOGIN_RESPONSE,
-          error: 'Please try again'
-        })
-      })
-  }
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 }
 
 // Login a user using credentials
@@ -81,7 +66,7 @@ export function login(userCredentials, isLoading = true) {
     return axios.post(routeApi, query({
       operation: 'userLogin',
       variables: userCredentials,
-      fields: ['user {name, email, role}', 'token']
+      fields: ['user { id, name, email, role, stylePreference}', 'token']
     }))
       .then(response => {
         let error = ''

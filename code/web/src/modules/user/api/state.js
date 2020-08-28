@@ -7,7 +7,7 @@ export const userInitialState = {
   error: null,
   isLoading: false,
   isAuthenticated: false,
-  details: null
+  details: null,
 }
 
 // State
@@ -28,10 +28,12 @@ export default (state = userInitialState, action) => {
       }
 
     case SET_USER_STYLE_PREFERENCE:
+      const newDetails = state.details;
+      newDetails.stylePreference = action.payload;
       return {
         ...state,
         error: null,
-        isLoading: action.isLoading
+        details: newDetails
       }
 
     case LOGIN_RESPONSE:
