@@ -157,19 +157,4 @@ describe('product querys and mutations', () => {
     expect(response.body.data.productTypes.length).toEqual(2)
   })
 
-  // it('find related products', async () => {
-  //   const relatedProducts = `query {
-  //     productsRelated(productId: 1) {
-  //       name
-  //     }
-  //   }`
-
-  //   const response = await request(server)
-  //   .get('/')
-  //   .send({query: relatedProducts})
-  //   .expect(200)
-
-  //   console.log(response.body)
-  // })
-
 });
