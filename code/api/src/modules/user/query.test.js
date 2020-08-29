@@ -70,7 +70,7 @@ describe('user queries', () => {
 
   it ('returns user by id', async () => {
     const singleUserQuery = `query { 
-      user(id: 24) { 
+      user(id: 3) { 
         email 
         name 
       } 
@@ -80,7 +80,6 @@ describe('user queries', () => {
       .get('/')
       .send({ query: singleUserQuery})
       .expect(200)
-
     expect(response.body.data.user.name).toEqual('testUser1')
   })
 
