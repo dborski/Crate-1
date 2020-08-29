@@ -41,5 +41,8 @@ export const productsRelated = {
 // Product Types
 export const productTypes = {
   type: new GraphQLList(ProductTypesType),
+  args: {
+    productType: {type: GraphQLInt}
+  },
   resolve: getTypes
 }

@@ -6,7 +6,7 @@ import models from '../../setup/models'
 import bcrypt from 'bcrypt'
 import db from '../../setup/database';
 import authentication from '../../setup/authentication'
-import { product } from './query'
+import { product, productTypes } from './query'
 // import { isType } from 'graphql'
 
 describe('product querys and mutations', () => {
@@ -55,9 +55,30 @@ describe('product querys and mutations', () => {
       gender: 1, 
       image: "image"
     }; 
+    
+    const productData2 = {
+      id: 2, 
+      name: "pants1234", 
+      slug: "pants1234", 
+      description: "a pair of pants", 
+      type: 1, 
+      gender: 1, 
+      image: "image"
+    }; 
+    const productData3 = {
+      id: 3, 
+      name: "dress", 
+      slug: "dress", 
+      description: "a dress", 
+      type: 2, 
+      gender: 2, 
+      image: "image"
+    }; 
 
     await models.User.create(userData1);
     await models.Product.create(productData1);
+    await models.Product.create(productData2);
+    await models.Product.create(productData3);
 
     const response = await request(server)
       .get('/')
@@ -89,23 +110,51 @@ describe('product querys and mutations', () => {
     .get('/')
     .send({ query: allProducts })
     .expect(200)
-    // console.log(response.body.data.products.length)
-    expect(response.body.data.products.length).toEqual(1)
+    expect(response.body.data.products.length).toEqual(3)
   });
 
-  it('returns product by id', async () => {
-    const productById = `query {
-      product(id: 1) {
+  it('returns product by slug', async () => {
+    const productBySlug = `query {
+      product(slug: "shirt1234") {
         name
       }
     }`
 
     const response = await request(server) 
     .get('/')
-    .send({query: productById})
+    .send({query: productBySlug})
     .expect(200)
-    expect(response.body.data.products.name).toEqual("shirt1234")
+    expect(response.body.data.product.name).toEqual("shirt1234")
   });
 
+  it('returns product by id', async () => {
+    const product = `query {
+      productById(productId: 1) {
+        name
+      }
+    }`
+
+    const response = await request(server)
+    .get('/')
+    .send({query: product})
+    .expect(200)
+    expect(response.body.data.productById.name).toEqual("shirt1234")
+  });
+
+
+  it('returns all products by type', async () => {
+    const productByType = `query {
+      productTypes(productType: 1) {
+        name
+      }
+    }`
+
+    const response = await request(server)
+    .get('/')
+    .send({query: productByType})
+    .expect(200)
+    
+    expect(response.body.data.productTypes.length).toEqual(2)
+  })
 
 });
