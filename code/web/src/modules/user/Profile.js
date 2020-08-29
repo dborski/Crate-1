@@ -50,7 +50,7 @@ return (
         <Link to={userRoutes.subscriptions.path}>
           <Button theme="primary">Subscriptions</Button>
         </Link>
-        <button onClick={removeStylePreference}>Remove Style Preference</button>
+        <Button theme="secondary" onClick={removeStylePreference}>Remove Style Preference</Button>
         <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
       </GridCell>
     </Grid>
