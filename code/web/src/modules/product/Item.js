@@ -15,6 +15,8 @@ import { routeImage, routes } from '../../setup/routes'
 const Item = (props) => {
 
   const { name, slug, description, image } = props.product
+  console.log(routeImage)
+  console.log(image)
 
   return (
     <Link to={routes.product.path(slug)}>
