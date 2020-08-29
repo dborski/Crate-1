@@ -9,8 +9,9 @@ import { Helmet } from "react-helmet";
 import { Grid, GridCell } from "../../ui/grid";
 import H3 from "../../ui/typography/H3";
 import H4 from "../../ui/typography/H4";
-import { white, grey, grey2 } from "../../ui/common/colors";
+import { white, grey, grey2, black } from "../../ui/common/colors";
 import Button from '../../ui/button'
+import Card from '../../ui/card'
 
 // App Imports
 import { messageShow, messageHide } from "../common/api/actions";
@@ -87,39 +88,50 @@ class StyleSurvey extends Component {
     this.props.history.push(userRoutes.subscriptions.path)
   }
 
-  makeRadioBtns = () => {
+  makeImagesElems = (category, styleKey) => {
+
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center' }} key={category + styleKey + 'images'}>
+        <Card style={{ width: '12em', height: '15em', margin: '1em', marginRight: '0em',backgroundColor: white}}>
+          <img style={{ width: '12em', height: '15em'}} src={`http://localhost:8000/images/stock/${category}-${styleKey}-mens.jpg`} alt={"name"} />
+        </Card>
+        <Card style={{ width: '12em', height: '15em', margin: '1em', marginLeft: '0em', backgroundColor: white}}>
+          <img style={{ width: '12em', height: '15em'}} src={`http://localhost:8000/images/stock/${category}-${styleKey}-womens.jpg`} alt={"name"} />
+        </Card>
+      </div>
+    )
+  }
+
+  makeCards = () => {
     const categories = ["Tops", "Bottoms", "Shoes", "Accessories", "Dress"];
-    return categories.map((category, i) => {
+    const styleKeys = ["edgy", "professional", "casual"]
+    const allCards = categories.map((category, i) => {
+      const rowOfCards = styleKeys.map(styleKey => 
+        <GridCell style={{textAlign: "center", marginBottom: "2em"}} key={styleKey + "row" + i}>
+          {this.makeImagesElems(category, styleKey)}
+          <input
+            onChange={this.onChange}
+            type="radio"
+            name={category}
+            value={styleKey}
+            key={styleKey+category}
+            style={{ textAlign: "center" }}
+          />
+        </GridCell>);
       return (
-        <section key={category + "section"}>
-          {category}
-          <input
-            onChange={this.onChange}
-            type="radio"
-            name={category}
-            value="edgy"
-            key={i + "edgy" + category}
-          />{" "}
-          Edgy
-          <input
-            onChange={this.onChange}
-            type="radio"
-            name={category}
-            value="professional"
-            key={i + "professional" + category}
-          />{" "}
-          Professional
-          <input
-            onChange={this.onChange}
-            type="radio"
-            name={category}
-            value="casual"
-            key={i + "casual" + category}
-          />{" "}
-          Casual
-        </section>
-      );
-    });
+      <div style={{ display: 'flex'}} key={category + "allCards"}> 
+        <GridCell style={{ width: '5em'}}>
+          <H3 font="secondary">{category}</H3>
+        </GridCell>
+        {rowOfCards}
+      </div>
+      )
+    })
+    return (
+      <section> 
+        {allCards}
+      </section>
+    );
   };
 
   render() {
@@ -140,8 +152,8 @@ class StyleSurvey extends Component {
           </Grid>
           <Grid>
             <GridCell style={{textAlign: "center" }}>
-              {this.makeRadioBtns()}
-              <button onClick={this.onSubmit}>SUBMIT</button>
+              {this.makeCards()}
+              <Button theme="secondary" onClick={this.onSubmit}>SUBMIT</Button>
               {this.state.surveyMessage && <p style={{color:"red"}}>{this.state.surveyMessage}</p>}
             </GridCell>
           </Grid>
