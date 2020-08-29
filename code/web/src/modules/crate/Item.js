@@ -53,9 +53,6 @@ class Item extends PureComponent {
         );
       })
       .then(() => {
-        this.setState({
-          isLoading: false,
-        });
 
         window.setTimeout(() => {
           this.props.messageHide();
