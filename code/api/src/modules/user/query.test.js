@@ -80,7 +80,6 @@ describe('user queries', () => {
       .get('/')
       .send({ query: singleUserQuery})
       .expect(200)
-
     expect(response.body.data.user.name).toEqual('testUser1')
   })
 
