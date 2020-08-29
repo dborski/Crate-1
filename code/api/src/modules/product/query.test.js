@@ -82,10 +82,10 @@ describe('product querys and mutations', () => {
 
     const response = await request(server)
       .get('/')
-      .send({ query: `{ userLogin(email: "test1@example.com", password: "abc123") { token }}` })
+      .send({ query: `{ userLogin(email: "test2@gmail.com", password: "abc123") { token }}` })
       .expect(200)
 
-    // token = response.body.data.userLogin.token
+    token = response.body.data.userLogin.token
   })
 
   afterEach(async () => {
@@ -156,5 +156,20 @@ describe('product querys and mutations', () => {
     
     expect(response.body.data.productTypes.length).toEqual(2)
   })
+
+  // it('find related products', async () => {
+  //   const relatedProducts = `query {
+  //     productsRelated(productId: 1) {
+  //       name
+  //     }
+  //   }`
+
+  //   const response = await request(server)
+  //   .get('/')
+  //   .send({query: relatedProducts})
+  //   .expect(200)
+
+  //   console.log(response.body)
+  // })
 
 });
