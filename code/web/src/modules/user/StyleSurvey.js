@@ -8,7 +8,6 @@ import { Helmet } from "react-helmet";
 // UI Imports
 import { Grid, GridCell } from "../../ui/grid";
 import H3 from "../../ui/typography/H3";
-import H4 from "../../ui/typography/H4";
 import { white, grey, grey2, black } from "../../ui/common/colors";
 import Button from '../../ui/button'
 import Card from '../../ui/card'
@@ -17,7 +16,6 @@ import Card from '../../ui/card'
 import { messageShow, messageHide } from "../common/api/actions";
 import { setUserStylePreference } from "./api/actions";
 import userRoutes from "../../setup/routes/user";
-import ScrollToTop from '../../modules/common/ScrollToTop'
 
 // Component
 class StyleSurvey extends Component {
