@@ -5,21 +5,32 @@ import schema from '../../setup/schema'
 import models from '../../setup/models'
 import bcrypt from 'bcrypt'
 import db from '../../setup/database';
+import authentication from '../../setup/authentication'
 
 describe('user queries', () => {
   let server;
 
   beforeAll(async() => {
     server = express();
+     
+    server.use(
+      authentication
+    )
 
     server.use(
       '/',
-      graphqlHTTP({
+      graphqlHTTP(request => ({
         schema: schema,
         graphiql: false,
-      }),
+        context: {
+          auth: {
+            user: request.user,
+            isAuthenticated: request.user && request.user.id > 0 
+          }
+        }
+      }),)
     );
-    // await models.User.destroy({ where: {} })
+    await models.User.destroy({ where: {} })
   })
 
   beforeEach(async () => {
@@ -31,7 +42,7 @@ describe('user queries', () => {
       role: "USER",
       createdAt: new Date(),
       updatedAt: new Date(),
-      styleSummary: "coding cowboy"
+      stylePreference: "coding cowboy"
     };
 
     const userData2 = {
@@ -42,7 +53,7 @@ describe('user queries', () => {
       role: "USER",
       createdAt: new Date(),
       updatedAt: new Date(),
-      styleSummary: "goth farmer"
+      stylePreference: "goth farmer"
     };
 
     await models.User.create(userData1);
@@ -86,16 +97,16 @@ describe('user queries', () => {
       .send({ query: allUsersQuery})
       .expect(200)
 
-    expect(response.body.data.users.length).toEqual(2)
+    expect(response.body.data.users.length).toEqual(3)
   })
 
   it ('updates user style preference', async () => {
     const updateUserQuery = `mutation {
       userUpdate(id:3, stylePreference: "coding cowboy") {
-      id
-      name
-      email
-      stylePreference
+        id
+        name
+        email
+        stylePreference
       }
     }`
 
@@ -120,7 +131,7 @@ describe('user queries', () => {
       .send({ query: deleteUserQuery })
       .expect(200)
 
-    expect(response.body.data.userRemove.id).toEqual(null)
+    expect(response.body.data.userRemove).toEqual(expect.anything())
   })
 
   it ('creates a user', async() => {
@@ -141,21 +152,32 @@ describe('user queries', () => {
     expect(response.body.data.userSignup.email).toEqual("newEmail@example.com")
   })
 
-  it.skip ('logs in a user', async() => {
-    const loginUserQuery = `query {
-      userLogin(email: "test1@example.com", password: "abc123") {
-        name
-        email
-        role
-      },
+  it ('logs in a user', async() => {
+    const loginQuery = `query { 
+      userLogin(email: "test1@example.com", password: "abc123") { 
         token 
+      }
     }`
-
     const response = await request(server)
-      .post('/')
-      .send({ query: loginUserQuery })
+      .get('/')
+      .send({ query: loginQuery })
       .expect(200)
 
-    expect(response.body.data.userLogin.email).toEqual("testUser1@example.com")
+    expect(response.body.data.userLogin.token).toEqual(expect.anything())
+  })
+
+  it ('gets user genders', async() => {
+    const getGenderQuery = `query { 
+      userGenders { 
+        id
+        name
+      }
+    }`
+    const response = await request(server)
+      .get('/')
+      .send({ query: getGenderQuery })
+      .expect(200)
+
+    expect(response.body.data.userGenders[0].name).toEqual("Male")
   })
 })

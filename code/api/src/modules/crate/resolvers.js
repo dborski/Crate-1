@@ -33,13 +33,15 @@ export async function create(parentValue, { name, description }, { auth }) {
 
 // Update crate
 export async function update(parentValue, { id, name, description }, { auth }) {
+  var crate = await models.Crate.findOne({ where: { id } })
+
   if(auth.user && auth.user.role === params.user.roles.admin) {
-    return await models.Crate.update(
+    return await crate.update(
       {
         name,
         description
       },
-      {where: {id}}
+      { where: { id } }
     )
   } else {
     throw new Error('Operation denied.')
