@@ -70,7 +70,7 @@ describe('user queries', () => {
 
   it ('returns user by id', async () => {
     const singleUserQuery = `query { 
-      user(id: 3) { 
+      user(id: 24) { 
         email 
         name 
       } 

@@ -6,9 +6,9 @@ import models from '../../setup/models'
 import bcrypt from 'bcrypt'
 import db from '../../setup/database';
 import authentication from '../../setup/authentication'
-import { isType } from 'graphql'
+// import { isType } from 'graphql'
 
-describe('user querys and mutations', () => {
+describe('product querys and mutations', () => {
   let server;
   let token;
   beforeAll(async () => {
@@ -47,8 +47,8 @@ describe('user querys and mutations', () => {
 
     const productData1 = {
       id: 1, 
-      name: "shirt", 
-      slug: "shirt", 
+      name: "shirt1234", 
+      slug: "shirt1234", 
       description: "a shirt", 
       type: 1, 
       gender: 1, 
@@ -63,7 +63,7 @@ describe('user querys and mutations', () => {
       .send({ query: `{ userLogin(email: "test1@example.com", password: "abc123") { token }}` })
       .expect(200)
 
-    // token = response.body.data.userLogin.token
+    token = response.body.data.userLogin.token
   })
 
   afterEach(async () => {
@@ -77,17 +77,18 @@ describe('user querys and mutations', () => {
   })
 
   it('returns product by id', async () => {
-    const singleProductQuery = `query {
-      product(id: 1) {
+    const productById = `query {
+      products {
         name
-        image
+        slug
+        
       }
     }`
-
     const response = await request(server)
-      .get('/')
-      .send({ query: singleProductQuery })
-      .expect(200)
-    expect(response.body.data.product.length).toEqual(1)
+    .get('/')
+    .send({ query: productById })
+    .expect(200)
+    // console.log(response.body.data.products.length)
+    expect(response.body.data.products.length).toEqual(1)
   })
 })
